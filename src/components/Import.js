@@ -9,9 +9,10 @@ import {
   Button,
   Menu,
   MenuItem,
-  //   IconButton
 } from "@material-ui/core";
-import { MoreVert } from "@material-ui/icons";
+// import { MoreVert } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const Import = (props) => {
   // fill out this component
@@ -49,15 +50,29 @@ const Import = (props) => {
         <TableBody>
           {props.makes.map((make, idx) => (
             <TableRow key={idx}>
-              {/* <TableCell component="th" scope="row">
-                            {make.id}
-                        </TableCell> */}
-              <TableCell>{make.MakeId}</TableCell>
+              <TableCell component="th" scope="row">
+                {make.MakeId}
+              </TableCell>
               <TableCell>{make.MakeName}</TableCell>
+              {/* <TableCell>{make.MakeName}</TableCell> */}
               <TableCell>
-                <MoreVert onClick={handleClick} />
+                <IconButton
+                  aria-label="more"
+                  aria-controls="long-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  
+                <MoreVertIcon />
+                </IconButton>
 
-                <Menu
+                
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <Menu
                   id="long-menu"
                   anchorEl={anchorEl}
                   keepMounted
@@ -70,16 +85,11 @@ const Import = (props) => {
                     },
                   }}
                 >
-                  <MenuItem onClick={props.deleteMake} index={idx}>
+                  <MenuItem onClick={props.deleteMake}>
                     Delete
                   </MenuItem>
-                </Menu>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Container>
+          </Menu>
+      </Container>
   );
 };
 
