@@ -11,7 +11,7 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const Import = (props) => {
   // fill out this component
@@ -22,7 +22,6 @@ const Import = (props) => {
   const handleClick = (idx) => (event) => {
     setAnchorEl(event.currentTarget);
     setCurrentIndex(idx);
-
   };
 
   const handleClose = () => {
@@ -65,35 +64,29 @@ const Import = (props) => {
                   aria-haspopup="true"
                   onClick={handleClick(idx)}
                 >
-                  
-                <MoreVertIcon />
+                  <MoreVertIcon />
                 </IconButton>
-
-                
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <Menu
-                  id="long-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-
-                  onClose={handleClose}
-                  PaperProps={{
-                    style: {
-                      maxHeight: ITEM_HEIGHT * 4.5,
-                      width: "20ch",
-                    },
-                  }}
-                >
-                  <MenuItem onClick={handleClose}>
-                    Delete
-                  </MenuItem>
-          </Menu>
-      </Container>
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: "20ch",
+          },
+        }}
+      >
+        <MenuItem onClick={handleClose}>Delete</MenuItem>
+      </Menu>
+    </Container>
   );
 };
 
