@@ -12,19 +12,23 @@ import {
 } from "@material-ui/core";
 // import { MoreVert } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const Import = (props) => {
   // fill out this component
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const [currentIndex, setCurrentIndex] = React.useState(-1);
   const ITEM_HEIGHT = 48;
 
-  const handleClick = (event) => {
+  const handleClick = (idx) => (event) => {
     setAnchorEl(event.currentTarget);
+    setCurrentIndex(idx);
   };
 
   const handleClose = () => {
+    if (currentIndex >= 0) {
+      props.deleteMake(currentIndex);
+    }
     setAnchorEl(null);
   };
 
@@ -54,42 +58,36 @@ const Import = (props) => {
                 {make.MakeId}
               </TableCell>
               <TableCell>{make.MakeName}</TableCell>
-              {/* <TableCell>{make.MakeName}</TableCell> */}
               <TableCell>
                 <IconButton
                   aria-label="more"
                   aria-controls="long-menu"
                   aria-haspopup="true"
-                  onClick={handleClick}
+                  onClick={handleClick(idx)}
                 >
-                  
-                <MoreVertIcon />
+                  <MoreVertIcon />
                 </IconButton>
-
-                
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
       <Menu
-                  id="long-menu"
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={open}
-                  onClose={handleClose}
-                  PaperProps={{
-                    style: {
-                      maxHeight: ITEM_HEIGHT * 4.5,
-                      width: "20ch",
-                    },
-                  }}
-                >
-                  <MenuItem onClick={props.deleteMake}>
-                    Delete
-                  </MenuItem>
-          </Menu>
-      </Container>
+        id="long-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        PaperProps={{
+          style: {
+            maxHeight: ITEM_HEIGHT * 4.5,
+            width: "20ch",
+          },
+        }}
+      >
+        <MenuItem onClick={handleClose}>Delete</MenuItem>
+      </Menu>
+    </Container>
   );
 };
 
