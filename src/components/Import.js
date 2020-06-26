@@ -10,21 +10,25 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-// import { MoreVert } from "@material-ui/icons";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 const Import = (props) => {
   // fill out this component
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const [currentIndex, setCurrentIndex] = React.useState(-1);
   const ITEM_HEIGHT = 48;
 
-  const handleClick = (event) => {
+  const handleClick = (idx) => (event) => {
     setAnchorEl(event.currentTarget);
+    setCurrentIndex(idx);
+
   };
 
   const handleClose = () => {
+    if (currentIndex >= 0) {
+      props.deleteMake(currentIndex);
+    }
     setAnchorEl(null);
   };
 
@@ -54,13 +58,12 @@ const Import = (props) => {
                 {make.MakeId}
               </TableCell>
               <TableCell>{make.MakeName}</TableCell>
-              {/* <TableCell>{make.MakeName}</TableCell> */}
               <TableCell>
                 <IconButton
                   aria-label="more"
                   aria-controls="long-menu"
                   aria-haspopup="true"
-                  onClick={handleClick}
+                  onClick={handleClick(idx)}
                 >
                   
                 <MoreVertIcon />
@@ -76,7 +79,8 @@ const Import = (props) => {
                   id="long-menu"
                   anchorEl={anchorEl}
                   keepMounted
-                  open={open}
+                  open={Boolean(anchorEl)}
+
                   onClose={handleClose}
                   PaperProps={{
                     style: {
@@ -85,7 +89,7 @@ const Import = (props) => {
                     },
                   }}
                 >
-                  <MenuItem onClick={props.deleteMake}>
+                  <MenuItem onClick={handleClose}>
                     Delete
                   </MenuItem>
           </Menu>
